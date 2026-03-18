@@ -1,0 +1,55 @@
+services:
+  db:
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - backend
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      DATABASE_HOST: db
+    volumes:
+      - static_volume:/var/www/gutendex/static-root
+    depends_on:
+      db:
+        condition: service_healthy
+
+    networks:
+      - backend
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - static_volume:/var/www/gutendex/static-root
+      # - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf  ← we'll uncomment this later
+    depends_on:
+      - backend
+    networks:
+      - frontend
+      - backend
+
+volumes:
+  postgres_data:
+  # - i am not sure about this yet ,
+  static_volume:
+
+networks:
+  frontend:
+  backend:
