@@ -1,0 +1,108 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# =========================
+# Django
+# =========================
+*.log
+*.pot
+*.pyc
+db.sqlite3
+db.sqlite3-journal
+
+# Media & static (optional depending on setup)
+media/
+staticfiles/
+
+# Secret settings / env files
+.env
+.env.*
+*.env
+
+# Django migrations (optional – usually KEEP these!)
+# **/migrations/*.py
+# !**/migrations/__init__.py
+
+# =========================
+# PostgreSQL
+# =========================
+# Local database dumps
+*.sql
+*.dump
+
+# PostgreSQL data directory (if exists locally)
+pgdata/
+postgres-data/
+
+# =========================
+# Nginx
+# =========================
+# Logs
+nginx/logs/
+*.log
+
+# Temp files
+nginx/temp/
+nginx/cache/
+
+# Local config overrides (if you use them)
+nginx/conf.d/*.conf
+
+# =========================
+# OS / Editor junk
+# =========================
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# =========================
+# Testing / coverage
+# =========================
+.coverage
+htmlcov/
+.tox/
+.pytest_cache/
+
+# =========================
+# Docker (if relevant)
+# =========================
+*.pid
+*.sock
+
+# =========================
+# Misc
+# =========================
+*.swp
+*.bak
