@@ -26,10 +26,13 @@ if [ ! -f /app/catalog_files/.catalog_loaded ]; then
     echo "Catalog data loaded."
 fi
 
-# Collect static files into the shared volume for Nginx to serve
+# Collect static files into the shared volume for Nginx to serve - collectstatic is a django management command 
 echo "Collecting static files..."
 python manage.py collectstatic --noinput
 
-# Hand off to the CMD from Dockerfile (starts the server)
+#REMOVE THE STATIC FILES FROM THE APP CONTAINER AFTER COPYING THEM TO THE STATIC VOLUME 
+rm -rf /app/static/
+
+# -Hand off to the CMD from Dockerfile (starts the server)
 # exec replaces this shell process with the server process
 exec "$@"

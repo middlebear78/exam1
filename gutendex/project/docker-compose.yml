@@ -28,6 +28,7 @@ services:
       PGPASSWORD: ${DATABASE_PASSWORD}
     volumes:
       - static_volume:/var/www/gutendex/static-root
+      - catalog_data:/app/catalog_files
     depends_on:
       db:
         condition: service_healthy
@@ -51,8 +52,8 @@ services:
 
 volumes:
   postgres_data:
-  # - i am not sure about this yet ,
   static_volume:
+  catalog_data:
 
 networks:
   frontend:
