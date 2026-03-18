@@ -1,5 +1,8 @@
 FROM python:3.9-slim
 
+
+# Install system dependencies for psycopg2 - the adaptor between django and postgres
+
 RUN apt-get update && apt-get-install -y --no-install-recommends \
 gcc \
 libpq-dev \
