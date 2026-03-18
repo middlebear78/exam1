@@ -38,7 +38,8 @@ services:
       - "80:80"
     volumes:
       - static_volume:/var/www/gutendex/static-root
-      # - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf  ← we'll uncomment this later
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+
     depends_on:
       - backend
     networks:
