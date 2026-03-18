@@ -5,6 +5,7 @@ services:
       POSTGRES_DB: ${DATABASE_NAME}
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -23,6 +24,8 @@ services:
       - .env
     environment:
       DATABASE_HOST: db
+      # this one is for the pqsl library to send a test through the entrypoint - it only accepts PGPASSWORD as a variable
+      PGPASSWORD: ${DATABASE_PASSWORD}
     volumes:
       - static_volume:/var/www/gutendex/static-root
     depends_on:

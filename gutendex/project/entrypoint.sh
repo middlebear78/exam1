@@ -5,12 +5,13 @@
 set -e
 
 # Verify database connection (backup check in case healthcheck is bypassed)
-echo "Verifying database connection..."
-until python manage.py check --database default; do
-    echo "Database not ready, retrying in 2s..."
+# Send a real query to the database - SELECT 1 and get a response back                                                                                                                      
+echo "Testing database connection..."                                                                                                                                                         
+until psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME" -c "SELECT 1;"; do                                                                
+    echo "Database not responding to queries, retrying in 2s..."
     sleep 2
 done
-echo "Database connection verified."
+echo "Database responded successfully!"
 
 # Apply database migrations (creates/updates tables, safe to run multiple times)
 echo "Applying migrations..."
