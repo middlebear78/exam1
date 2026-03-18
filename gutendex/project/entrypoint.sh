@@ -4,14 +4,14 @@
 # Docker healthcheck ensures DB is ready, but we verify as a safety net.                                                                                                                      
 set -e
 
-# Verify database connection (backup check in case healthcheck is bypassed)
-# Send a real query to the database - SELECT 1 and get a response back                                                                                                                      
-echo "Testing database connection..."                                                                                                                                                         
-until psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME" -c "SELECT 1;"; do                                                                
-    echo "Database not responding to queries, retrying in 2s..."
-    sleep 2
-done
-echo "Database responded successfully!"
+# DB connection test - commented out to reduce image size (postgresql-client removed ~80MB)
+# healthcheck in docker-compose handles DB readiness instead
+# echo "Testing database connection..."
+# until psql -h "$DATABASE_HOST" -p "$DATABASE_PORT" -U "$DATABASE_USER" -d "$DATABASE_NAME" -c "SELECT 1;"; do
+#     echo "Database not responding to queries, retrying in 2s..."
+#     sleep 2
+# done
+# echo "Database responded successfully!"
 
 # Apply database migrations (creates/updates tables, safe to run multiple times)
 echo "Applying migrations..."
